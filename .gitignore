@@ -1,1 +1,6 @@
 minihex
+*.html
+*.o
+*.bin
+*.obj
+*.elf
