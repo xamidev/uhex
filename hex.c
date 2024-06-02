@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 // TODO: Skip repeating lines
 
 #define BYTES 1024
-#define BYTES_PER_LINE 20
+//#define BYTES_PER_LINE 10
+#define round(x) (int)(x < 0 ? (x -0.5) : x + 0.5)
 
-void print_hex(unsigned char* buf, int byteno, int pos)
+void print_hex(unsigned char* buf, int byteno, int pos, int BYTES_PER_LINE)
 {
   for (int i=0; i<byteno; i++)
   {
@@ -56,6 +59,10 @@ int main(int argc, char** argv)
     return -1;
   }
 
+  struct winsize w;
+  ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+  int BYTES_PER_LINE = round((w.ws_col-14)/4);
+
   FILE* f = fopen(argv[1], "rb+");
   if (!f)
   {
@@ -64,7 +71,7 @@ int main(int argc, char** argv)
   }
   unsigned char buf[BYTES];
   int byteno = fread(buf, 1, BYTES, f);
-  print_hex(buf, byteno, 0);
+  print_hex(buf, byteno, 0, BYTES_PER_LINE);
   
   for (;;)
   {
@@ -77,7 +84,7 @@ int main(int argc, char** argv)
     switch(cmd)
     {
       case 'p': 
-        print_hex(buf + loc, BYTES_PER_LINE, loc);
+        print_hex(buf + loc, BYTES_PER_LINE, loc, BYTES_PER_LINE);
         break;
       case 'e':
         int value;
