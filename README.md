@@ -1,8 +1,8 @@
 # minihex
 
-![minihex showcase](https://ibb.co/bQMF6cF)
+![minihex showcase](https://i.ibb.co/w6SkKQs/minihex.png)
 
-A minimalist, single-file hexadecimal editor written in less than 100 lines of C with no dependencies (except the standard library). The program tries to be as simple as possible.
+A minimalist, single-file hexadecimal editor written using around 100 lines of C with no dependencies (except the standard library). The program tries to be as simple as possible.
 Other features might be added in the future. Boredom made me code it in one day.
 
 ## Usage
