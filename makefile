@@ -3,7 +3,10 @@ CFLAGS=-g -Wall -Wextra -o
 CFILES=hex.c
 
 all:
-	$(CC) $(CFILES) $(CFLAGS) minihex
+	$(CC) $(CFILES) $(CFLAGS) uhex
+
+install: all
+	sudo cp uhex /usr/local/bin
 
 clean:
-	rm minihex
+	rm uhex
